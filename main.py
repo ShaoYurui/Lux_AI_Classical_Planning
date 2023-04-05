@@ -2,7 +2,7 @@ import os
 import pyperplan
 
 ROBOT_POS = (6, 3)
-GOLD_MINE_POS = (22, 35)
+GOLD_MINE_POS = (2, 5)
 
 GRID_WORLD_X_MIN = min(GOLD_MINE_POS[0], ROBOT_POS[0])
 GRID_WORLD_X_MAX = max(GOLD_MINE_POS[0], ROBOT_POS[0])
@@ -15,8 +15,41 @@ solution_file = "./pddl/problem.pddl.soln"
 
 def main():
     generate_problem_file()
+    # run pyperplan with terminal command, did not find any useful API guide
     os.system(f"pyperplan {domain_file} {problem_file}")
     parse_solution_file()
+
+
+def generate_problem_file():
+    content = ""
+    content = content + getString_problem_file_prefix()
+    content = content + getString_problem_file_tiles()
+    content = content + getString_problem_file_init_prefix()
+
+    content = content + getString_right_tiles()
+    content = content + getString_left_tiles()
+    content = content + getString_down_tiles()
+    content = content + getString_up_tiles()
+
+    content = content + getString_problem_file_init_endfix()
+    content = content + getString_problem_file_endfix()
+
+    f = open(problem_file, "w")
+    f.write(content)
+    f.close()
+
+
+def parse_solution_file():
+    prefix = "\nAction Queue = ["
+    endfix = "]\n"
+    result = prefix
+    f = open(solution_file, "r")
+    content = f.readlines()
+    for line in content:
+        # extract the action only from the line, discard other information
+        result = result + (line.split()[0][1:]) + ", "
+    result = result[:-2] + endfix
+    print(result)
 
 
 def getString_problem_file_prefix():
@@ -107,38 +140,6 @@ def getString_up_tiles():
                 result = result + f"(up loc_{x}_{y} loc_{x - 1}_{y}) "
     result = result + "\n"
     return result
-
-
-def generate_problem_file():
-    content = ""
-    content = content + getString_problem_file_prefix()
-    content = content + getString_problem_file_tiles()
-    content = content + getString_problem_file_init_prefix()
-
-    content = content + getString_right_tiles()
-    content = content + getString_left_tiles()
-    content = content + getString_down_tiles()
-    content = content + getString_up_tiles()
-
-    content = content + getString_problem_file_init_endfix()
-    content = content + getString_problem_file_endfix()
-
-    f = open(problem_file, "w")
-    f.write(content)
-    f.close()
-
-
-def parse_solution_file():
-    prefix = "\nAction Queue = ["
-    endfix = "]\n"
-    result = prefix
-    f = open(solution_file, "r")
-    content = f.readlines()
-    for line in content:
-        # extract the action only from the line, discard other information
-        result = result + (line.split()[0][1:]) + ", "
-    result = result[:-2] + endfix
-    print(result)
 
 
 if __name__ == "__main__":
