@@ -1,4 +1,4 @@
-#Appendix PDDL for classical planning: 
+# Appendix PDDL for classical planning: 
 
 
 We then can model this problem in PDDL for classical planning: 
