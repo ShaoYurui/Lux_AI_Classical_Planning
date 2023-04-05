@@ -1,8 +1,8 @@
 import os
 import pyperplan
 
-GOLD_MINE_POS = (22, 35)
 ROBOT_POS = (6, 3)
+GOLD_MINE_POS = (22, 35)
 
 GRID_WORLD_X_MIN = min(GOLD_MINE_POS[0], ROBOT_POS[0])
 GRID_WORLD_X_MAX = max(GOLD_MINE_POS[0], ROBOT_POS[0])
