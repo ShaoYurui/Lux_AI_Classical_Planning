@@ -1,10 +1,10 @@
 import os
 import pyperplan
 
-GRID_WORLD_WIDTH = 3
-GRID_WORLD_HEIGHT = 3
-GOLD_MINE_POS = (3, 3)
-ROBOT_POS = (0, 0)
+GRID_WORLD_WIDTH = 10
+GRID_WORLD_HEIGHT = 10
+GOLD_MINE_POS = (2, 5)
+ROBOT_POS = (6, 3)
 
 domain_file = "./pddl/domain.pddl"
 problem_file = "./pddl/problem.pddl"
