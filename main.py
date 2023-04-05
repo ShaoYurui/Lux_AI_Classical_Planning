@@ -1,9 +1,9 @@
 import os
 import pyperplan
 
-GRID_WORLD_WIDTH = 20
-GRID_WORLD_HEIGHT = 20
-GOLD_MINE_POS = (17, 18)
+GRID_WORLD_WIDTH = 3
+GRID_WORLD_HEIGHT = 3
+GOLD_MINE_POS = (3, 3)
 ROBOT_POS = (0, 0)
 
 domain_file = "./pddl/domain.pddl"
@@ -43,7 +43,7 @@ def getString_task_file_init_endfix():
 def getString_task_file_endfix():
     endfix = f"""
     (:goal
-        (and (at b loc_1_1) (has_gold))
+        (and (at b loc_{ROBOT_POS[0]}_{ROBOT_POS[1]}) (has_gold))
     )
 )\n"""
     return endfix
@@ -67,38 +67,42 @@ def is_within_grid_world(x, y):
 
 
 def getString_right_tiles():
-    result = ""
+    result = "\t\t"
     for x in range(GRID_WORLD_WIDTH + 1):
         for y in range(GRID_WORLD_HEIGHT + 1):
             if is_within_grid_world(x, y + 1):
-                result = result + f"\t\t(right loc_{x}_{y} loc_{x}_{y + 1})\n"
+                result = result + f"(right loc_{x}_{y} loc_{x}_{y + 1}) "
+    result = result + "\n"
     return result
 
 
 def getString_left_tiles():
-    result = ""
+    result = "\t\t"
     for x in range(GRID_WORLD_WIDTH + 1):
         for y in range(GRID_WORLD_HEIGHT + 1):
             if is_within_grid_world(x, y - 1):
-                result = result + f"\t\t(left loc_{x}_{y} loc_{x}_{y - 1})\n"
+                result = result + f"(left loc_{x}_{y} loc_{x}_{y - 1}) "
+    result = result + "\n"
     return result
 
 
 def getString_down_tiles():
-    result = ""
+    result = "\t\t"
     for x in range(GRID_WORLD_WIDTH + 1):
         for y in range(GRID_WORLD_HEIGHT + 1):
             if is_within_grid_world(x + 1, y):
-                result = result + f"\t\t(down loc_{x}_{y} loc_{x + 1}_{y})\n"
+                result = result + f"(down loc_{x}_{y} loc_{x + 1}_{y}) "
+    result = result + "\n"
     return result
 
 
 def getString_up_tiles():
-    result = ""
+    result = "\t\t"
     for x in range(GRID_WORLD_WIDTH + 1):
         for y in range(GRID_WORLD_HEIGHT + 1):
             if is_within_grid_world(x - 1, y):
-                result = result + f"\t\t(up loc_{x}_{y} loc_{x - 1}_{y})\n"
+                result = result + f"(up loc_{x}_{y} loc_{x - 1}_{y}) "
+    result = result + "\n"
     return result
 
 
@@ -128,6 +132,7 @@ def parse_solution_file():
     f = open(solution_file, "r")
     content = f.readlines()
     for line in content:
+        # extract the action only from the line, discard other information
         result = result + (line.split()[0][1:]) + ", "
     result = result[:-2] + endfix
     print(result)
