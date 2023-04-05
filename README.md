@@ -18,9 +18,7 @@ python main.py
 
 To change the grid world size and postion of the robot and gold mine, edit the `main.py` file :
 ```
-GRID_WORLD_WIDTH = 10
-GRID_WORLD_HEIGHT = 10
-GOLD_MINE_POS = (7, 8)
-ROBOT_POS = (0, 0)
+ROBOT_POS = (6, 3)
+GOLD_MINE_POS = (22, 35)
 ```
 
