@@ -1,8 +1,8 @@
 import os
 import pyperplan
 
-ROBOT_POS = (6, 3)
-GOLD_MINE_POS = (2, 5)
+ROBOT_POS = (4, 2)
+GOLD_MINE_POS = (1, 4)
 
 GRID_WORLD_X_MIN = min(GOLD_MINE_POS[0], ROBOT_POS[0])
 GRID_WORLD_X_MAX = max(GOLD_MINE_POS[0], ROBOT_POS[0])
@@ -106,8 +106,8 @@ def getString_right_tiles():
     result = "\t\t"
     for x in range(GRID_WORLD_X_MIN, GRID_WORLD_X_MAX + 1):
         for y in range(GRID_WORLD_Y_MIN, GRID_WORLD_Y_MAX + 1):
-            if is_within_grid_world(x, y + 1):
-                result = result + f"(right loc_{x}_{y} loc_{x}_{y + 1}) "
+            if is_within_grid_world(x+1, y):
+                result = result + f"(right loc_{x}_{y} loc_{x+1}_{y}) "
     result = result + "\n"
     return result
 
@@ -116,8 +116,8 @@ def getString_left_tiles():
     result = "\t\t"
     for x in range(GRID_WORLD_X_MIN, GRID_WORLD_X_MAX + 1):
         for y in range(GRID_WORLD_Y_MIN, GRID_WORLD_Y_MAX + 1):
-            if is_within_grid_world(x, y - 1):
-                result = result + f"(left loc_{x}_{y} loc_{x}_{y - 1}) "
+            if is_within_grid_world(x-1, y):
+                result = result + f"(left loc_{x}_{y} loc_{x-1}_{y}) "
     result = result + "\n"
     return result
 
@@ -126,8 +126,8 @@ def getString_down_tiles():
     result = "\t\t"
     for x in range(GRID_WORLD_X_MIN, GRID_WORLD_X_MAX + 1):
         for y in range(GRID_WORLD_Y_MIN, GRID_WORLD_Y_MAX + 1):
-            if is_within_grid_world(x + 1, y):
-                result = result + f"(down loc_{x}_{y} loc_{x + 1}_{y}) "
+            if is_within_grid_world(x, y+1):
+                result = result + f"(down loc_{x}_{y} loc_{x}_{y+1}) "
     result = result + "\n"
     return result
 
@@ -136,8 +136,8 @@ def getString_up_tiles():
     result = "\t\t"
     for x in range(GRID_WORLD_X_MIN, GRID_WORLD_X_MAX + 1):
         for y in range(GRID_WORLD_Y_MIN, GRID_WORLD_Y_MAX + 1):
-            if is_within_grid_world(x - 1, y):
-                result = result + f"(up loc_{x}_{y} loc_{x - 1}_{y}) "
+            if is_within_grid_world(x, y-1):
+                result = result + f"(up loc_{x}_{y} loc_{x}_{y-1}) "
     result = result + "\n"
     return result
 
