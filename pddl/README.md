@@ -27,7 +27,7 @@ Initial State:
     up (loc_1_0 loc_0_0) AND up (loc_1_1 loc_0_1) AND ……
 
 Goal State:
-    at (robot, loc_3_3) AND has_gold (robot)
+    at (robot, loc_6_3) AND has_gold (robot)
 
 Action: 
     move_right
